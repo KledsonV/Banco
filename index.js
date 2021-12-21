@@ -5,13 +5,13 @@ const chalk = require('chalk')
 //interno
 const fs = require('fs')
 
+//Funções
+const {createAccount} = require('./functions/createAccount')
+const {deposit} = require('./functions/deposit')
+const {exit} = require('./functions/exit')
 
 const operation = () => {
     
-    //Funções
-    const {createAccount} = require('./functions/createAccount')
-    const {deposit} = require('./functions/deposit')
-    const {exit} = require('./functions/exit')
     
     inquirer.prompt([{
         type: 'list',

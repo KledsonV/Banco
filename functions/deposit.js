@@ -1,9 +1,11 @@
 const inquirer = require('inquirer')
 const chalk = require('chalk')
 const fs = require('fs')
-const {operation} = require('../index')
 
 const deposit = () => {
+
+    const {operation} = require('../index')
+
     inquirer.prompt([{
         name: 'accountName',
         message: 'Qual o nome da sua conta?'

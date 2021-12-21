@@ -1,9 +1,10 @@
 const fs = require('fs')
 const chalk = require('chalk')
 const inquirer = require('inquirer')
-const {operation} = require('../index')
 
 const buildAccount = () => {
+    
+    const {operation} = require('../index')
 
     inquirer.prompt([{
         name: 'accountName',
