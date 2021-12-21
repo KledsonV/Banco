@@ -4,9 +4,8 @@ const fs = require('fs')
 
 // Depositar Valor //
 
-const deposit = () => {
+const deposit = (callback) => {
 
-    const { operation } = require('../index')
 
     inquirer.prompt([{
         name: 'accountName',
@@ -18,7 +17,7 @@ const deposit = () => {
 
             if (!fs.existsSync(`Contas/${accountName}.json`)) {
                 console.log(chalk.red(`Essa conta não existe!`));
-                deposit()
+                callback()
 
             } else {
 
@@ -31,13 +30,13 @@ const deposit = () => {
 
                     if (!amount) {
                         console.log(chalk.bgRed.black(`Ocorreu um erro, Tente mais tarde!`))
-                        operation()
+                        callback()
 
                     } else {
 
                         addValor(accountName, amount)
 
-                        operation()
+                        callback()
                     }
 
                 }).catch(err => console.log(`Erro: ${err}`))
@@ -47,7 +46,6 @@ const deposit = () => {
         })
         .catch(err => console.log(`Erro: ${err}`))
 }
-
 
 // Adicionar Valor //
 
@@ -64,15 +62,11 @@ function addValor(accountName, amount) {
 
     console.log(chalk.bgGreen.black(`Foi adicionado á sua conta o valor de, R$${amount}`))
 
-
 }
-
 
 // Consultar Saldo //
 
-const consultBalance = () => {
-
-    const { operation } = require('../index')
+const consultBalance = (callback) => {
 
     inquirer.prompt([{
         name: 'accountName',
@@ -90,7 +84,7 @@ const consultBalance = () => {
             const accountData = getAccount(accountName)
 
             console.log(chalk.bgCyan.black(`O saldo da sua conta é R$${accountData.Saldo}`));
-            operation()
+            callback()
 
         })
         .catch(err => {
@@ -98,20 +92,15 @@ const consultBalance = () => {
         })
 }
 
-
 // Sacar Dinheiro //
 
-const withdraw = () => {
-
-    const { operation } = require('../index')
+const withdraw = (callback) => {
 
     inquirer.prompt([{
         name: 'accountName',
         message: 'Qual o nome da conta em que deseja fazer o saque?'
     }])
         .then(answers => {
-
-            const { operation } = require('../index')
 
             const accountName = answers.accountName
 
@@ -121,7 +110,6 @@ const withdraw = () => {
 
                 return withdraw()
             }
-
 
             inquirer.prompt([{
                 name: 'amount',
@@ -133,7 +121,7 @@ const withdraw = () => {
 
                     if (!answers.amount) {
                         console.log((chalk.bgRed.black('Ocorreu um erro, tente novamente mais tarde!')))
-                        return operation()
+                        return callback()
                     }
 
                     if (accountData.Saldo < answers.amount) {
@@ -150,7 +138,7 @@ const withdraw = () => {
                         })
 
                     console.log(chalk.bgGreen.black(`Foi realizado um saque de R$${answers.amount} da sua conta bancaria!`));
-                    return operation()
+                    return callback()
 
                 })
                 .catch(err => {

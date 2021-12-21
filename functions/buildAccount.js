@@ -2,9 +2,7 @@ const fs = require('fs')
 const chalk = require('chalk')
 const inquirer = require('inquirer')
 
-const buildAccount = () => {
-    
-    const {operation} = require('../index')
+const buildAccount = (callback) => {
 
     inquirer.prompt([{
         name: 'accountName',
@@ -33,7 +31,7 @@ const buildAccount = () => {
 
             console.log(chalk.bgGreen.black(`Bem-Vindo ${accountName}, sua conta foi criada com Sucesso!!!`))
 
-            operation()
+            callback()
 
         }
 
