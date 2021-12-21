@@ -7,8 +7,10 @@ const fs = require('fs')
 
 //Funções
 const {createAccount} = require('./functions/createAccount')
-const {deposit} = require('./functions/deposit')
+const {deposit, withdraw} = require('./functions/D_C_S')
 const {exit} = require('./functions/exit')
+const {consultBalance} = require('./functions/D_C_S')
+
 
 const operation = () => {
     
@@ -33,9 +35,9 @@ const operation = () => {
         } else if (action === 'Depositar') {
             deposit()
         } else if (action === 'Consultar Saldo') {
-            
+            consultBalance()
         } else if (action === 'Sacar') {
-            
+            withdraw()
         } else if (action === 'Sair') {
             exit()
         }
@@ -44,6 +46,6 @@ const operation = () => {
         console.log(`Erro: ${err}`)
     })
 }
-module.exports = {operation}
 operation()
+module.exports = {operation}
 
